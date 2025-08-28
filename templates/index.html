@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-g">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosepetal Textify - Extrator de Texto de PDF</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Rosepetal Textify</h1>
+            <p>Envie um arquivo PDF para extrair o texto, seja de um documento digital ou de imagens de um livro.</p>
+        </header>
+        <main>
+            <form action="/" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="pdf_file">Selecione o arquivo PDF:</label>
+                    <input type="file" name="pdf_file" id="pdf_file" accept=".pdf" required>
+                </div>
+                <button type="submit">Extrair Texto</button>
+            </form>
+
+            {% if error %}
+                <div class="error-message">
+                    <p>{{ error }}</p>
+                </div>
+            {% endif %}
+
+            {% if extracted_text %}
+                <div class="result-section">
+                    <h2>Texto Extraído:</h2>
+                    <textarea readonly>{{ extracted_text }}</textarea>
+                    <a href="{{ url_for('download_file', filename=text_filename) }}" class="download-btn" download>Baixar Arquivo .txt</a>
+                </div>
+            {% endif %}
+        </main>
+        <footer>
+            <p>Desenvolvido com ❤️</p>
+        </footer>
+    </div>
+</body>
+</html>
